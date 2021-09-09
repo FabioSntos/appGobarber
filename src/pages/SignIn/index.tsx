@@ -15,8 +15,8 @@ export const SignIn = () => {
     <Container>
       <Image source={logoImg} />
       <Title>Faça seu Logon</Title>
-      <Input />
-      <Input />
+      <Input name="email" icon="mail" placeholder="email" />
+      <Input name="email" icon="lock" placeholder="senha" />
       <Button onPress={() => {}}>Entrar</Button>
     </Container>
   );

@@ -1,8 +1,20 @@
 import React from 'react';
-import { Container } from './styles';
+import { TextInputProps } from 'react-native';
 
-export const Input = () => {
-  return <Container>
-    
-  </Container>;
+
+
+import { Container, TextInput,Icon } from './styles';
+
+interface InputProps extends TextInputProps {
+  name: string;
+  icon: string;
+}
+
+export const Input = ({ name, icon, ...rest }: InputProps) => {
+  return (
+    <Container>
+      <Icon name={icon} size={20} color="#666360" />
+      <TextInput placeholderTextColor="#666360" {...rest}></TextInput>
+    </Container>
+  );
 };
