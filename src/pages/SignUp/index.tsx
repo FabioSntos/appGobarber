@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   Image,
   ScrollView,
@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 
 //@ts-expect-error
 import logoImg from '../../assets/logo.png';
@@ -24,6 +27,11 @@ import {
 
 export const SignUp = () => {
   const navigation = useNavigation();
+  const formRef = useRef<FormHandles>(null);
+  const handleSignUp = useCallback((data: object) => {
+    console.log(data);
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -38,10 +46,22 @@ export const SignUp = () => {
           <Container>
             <Image source={logoImg} />
             <Title>Crie sua conta</Title>
-            <Input name="name" icon="user" placeholder="Nome" />
-            <Input name="email" icon="mail" placeholder="E-mail" />
-            <Input name="password" icon="lock" placeholder="Senha" />
-            <Button onPress={() => {}}>Entrar</Button>
+            <Form
+              style={{ width: '100%' }}
+              ref={formRef}
+              onSubmit={handleSignUp}
+            >
+              <Input name="name" icon="user" placeholder="Nome" />
+              <Input name="email" icon="mail" placeholder="E-mail" />
+              <Input name="password" icon="lock" placeholder="Senha" />
+            </Form>
+            <Button
+              onPress={() => {
+                formRef.current.submitForm();
+              }}
+            >
+              Cadastrar-se
+            </Button>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>

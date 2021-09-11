@@ -11,5 +11,5 @@ export const Button = ({ children, ...rest }: ButtonProps) => {
     <Container {...rest}>
       <ButtonText>{children}</ButtonText>
     </Container>
-  ); 
+  );
 };
