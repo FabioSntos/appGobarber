@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   View,
+  TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -12,12 +13,13 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 
 import { useNavigation } from '@react-navigation/native';
+
 //@ts-expect-error
 import logoImg from '../../assets/logo.png';
 
 //components
 import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
+import Input from '../../components/Input';
 
 import {
   Container,
@@ -30,6 +32,7 @@ import {
 
 export const SignIn = () => {
   const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const navigation = useNavigation();
   const handleSignIn = useCallback((data: object) => {
@@ -53,8 +56,28 @@ export const SignIn = () => {
               <Title>Faça seu Logon</Title>
             </View>
             <Form ref={formRef} onSubmit={handleSignIn}>
-              <Input name="email" icon="mail" placeholder="email" />
-              <Input name="password" icon="lock" placeholder="senha" />
+              <Input
+                autoCorrect={false}
+                autoCapitalize="none"
+                name="email"
+                icon="mail"
+                placeholder="email"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  passwordInputRef.current.focus();
+                }}
+              />
+              <Input
+                ref={passwordInputRef}
+                secureTextEntry
+                name="password"
+                icon="lock"
+                placeholder="senha"
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                  formRef.current.submitForm();
+                }}
+              />
             </Form>
             <Button
               onPress={() => {
