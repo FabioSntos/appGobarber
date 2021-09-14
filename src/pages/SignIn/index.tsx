@@ -17,7 +17,6 @@ import { FormHandles } from '@unform/core';
 
 import { useNavigation } from '@react-navigation/native';
 
-//@ts-expect-error
 import logoImg from '../../assets/logo.png';
 
 //components
